@@ -43,9 +43,9 @@ app.get("/api/sample_td_list/all", (req, res) => {
     .catch((e) => console.error(e.stack));
 });
 
-app.get("/api/td_list:id", (req, res) => {
+app.get("/api/:list_name", (req, res) => {
   client
-    .query(`SELECT * FROM td_list${req.params.id}`)
+    .query(`SELECT * FROM ${req.params.list_name}`)
     .then((result) => {
       res.send(result.rows);
     })

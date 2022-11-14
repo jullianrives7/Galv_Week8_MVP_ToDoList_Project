@@ -38,10 +38,10 @@
 #status-col {
     width: 5%;
 }
-#add-row-svg {
+#del-row-svg {
     opacity: .2;
 }
-#add-row-svg:hover{
+#del-row-svg:hover{
     opacity:.5;
 }
 #hero_img {
@@ -52,4 +52,11 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 7px;
+}
+#add-item-btn {
+/* margin-left: 27%; */
+margin-top: 5%;
+}
+#save-changes-btn {
+margin-top: 5%;
 }
