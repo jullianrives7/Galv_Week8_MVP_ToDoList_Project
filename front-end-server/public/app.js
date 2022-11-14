@@ -183,7 +183,9 @@ savedListsLink.addEventListener("click", () => {
       <button class="btn btn-outline-success me-2" id="create-new-list-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button">Create New List</button>
     </div>`;
       savedListsModalBody.appendChild(p);
-      savedListsModalContent.appendChild(footer_btn);
+      while (!savedListsModalContent.querySelector(".modal-footer")) {
+        savedListsModalContent.appendChild(footer_btn);
+      }
     } else {
       for (var i = 0; i < data.length; i++) {
         if (data[i].tablename != "sample_td_list") {
@@ -198,9 +200,6 @@ savedListsLink.addEventListener("click", () => {
             let resultText = splitWordArr.join(" ");
             return resultText;
           };
-          // listButton.innerHTML = `<button class="btn btn-md btn-outline-success me-2"  id="${
-          //   data[i].tablename
-          // }-btn" data-bs-target="modal" data-bs-dismiss="modal" type="button">${splitAndCapListTitle()}</button>`;
           listButton.innerHTML = `<div class="btn-group">
           <button type="button" class="btn btn-outline-success saved-list-button" id="${
             data[i].tablename
@@ -237,32 +236,6 @@ savedListsLink.addEventListener("click", () => {
       }
       createEventListenersForSavedListBtns();
 
-      // function createEventListenerForDeleteListLinks() {
-      //   for (var i = 0; i < deleteListLinks.length; i++) {
-      //     deleteListLinks[i].addEventListener("click", () => {
-      //       console.log(
-      //         "clicked 'delete list link' for list table: ",
-      //         event.target.id
-      //       );
-      //       let splitAndCapListToBeDelTitle = () => {
-      //         let splitWordArr = event.target.id.split("_");
-      //         for (each in splitWordArr) {
-      //           splitWordArr[each] =
-      //             splitWordArr[each].charAt(0).toUpperCase() +
-      //             splitWordArr[each].slice(1);
-      //         }
-      //         let resultText = splitWordArr.join(" ");
-      //         return resultText;
-      //       };
-      //       let p = document.createElement("p");
-      //       p.innerHTML = `Are you sure you want to delete your "${splitAndCapListToBeDelTitle()}" list?`;
-      //       confirmDeleteModalBody.appendChild(p);
-      //       deleteListButton.classList.add(`${event.target.id}`);
-      //     });
-      //   }
-      // }
-      // createEventListenerForDeleteListLinks();
-
       function createEventListenersForDeleteListLinks() {
         for (var i = 0; i < deleteListLinks.length; i++) {
           deleteListLinks[i].addEventListener("click", () => {
@@ -285,7 +258,6 @@ savedListsLink.addEventListener("click", () => {
               }
             }
             console.log(target_index());
-            // console.log(savedListsModalBody.children[target_index()]);
             console.log(event.target.id);
             console.log(savedListsModalBody.children);
             fetch(`http://localhost:3001/api/${event.target.id}`, {
@@ -297,7 +269,8 @@ savedListsLink.addEventListener("click", () => {
                 savedListsModalBody.removeChild(
                   savedListsModalBody.children[target_index()]
                 )
-              );
+              )
+              .then(main.removeChild(main.firstChild));
             if (savedListsModalBody.children.length === 0) {
               let p = document.createElement("p");
               p.innerHTML = `<p>You currently don't have any saved lists.</p>`;
@@ -315,37 +288,3 @@ savedListsLink.addEventListener("click", () => {
     .then((response) => response.json())
     .then((data) => postSavedListsToModal(JSON.parse(JSON.stringify(data))));
 });
-
-// deleteListButton.addEventListener("click", () => {
-//   console.log("clicked");
-//   console.log(deleteListButton.classList[2]);
-//   function target_index() {
-//     let index;
-//     for (i = 0; i < savedListsModalBody.children.length; i++) {
-//       if (
-//         savedListsModalBody.children[i].outerHTML.includes(
-//           `${deleteListButton.classList[2]}`
-//         )
-//       ) {
-//         index = i;
-//         console.log("index = ", index);
-//         return index;
-//       }
-//     }
-//   }
-//   console.log(target_index());
-//   console.log(savedListsModalBody.children[target_index]);
-//   let index = target_index();
-//   fetch(`http://localhost:3001/api/${deleteListButton.classList[2]}`, {
-//     method: "DELETE",
-//   })
-//     .then((response) => response.json())
-//     .then((data) => console.log("Table deleted from api db."))
-//     .then(savedListsModalBody.removeChild(savedListsModalBody.children[index]))
-//     .then(savedListsLink.click());
-// if (savedListsModalBody.children.length === 0) {
-//   let p = document.createElement("p");
-//   p.innerHTML = `<p>You currently don't have any saved lists.</p>`;
-//   savedListsModalBody.appendChild(p);
-// }
-// });
