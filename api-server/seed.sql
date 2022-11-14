@@ -7,3 +7,5 @@ INSERT INTO sample_td_list (list_item, completion_status) VALUES ('Clean Car @ C
 INSERT INTO sample_td_list (list_item, completion_status) VALUES ('Finish MVP Project', false);
 
 
+
+

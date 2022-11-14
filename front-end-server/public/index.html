@@ -4,20 +4,271 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MVP Project</title>
     <script src= "app.js" defer></script>
     <link rel="stylesheet" href="style.css">
-    <!-- <link href="https://fonts.googleapis.com/css?family=Silkscreen" rel="stylesheet"> -->
-</head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Silkscreen" rel="stylesheet"> 
+  </head>
+<!---------------------------- NAV BAR ----------------------------------------->
 <body>
-    <h1>"To-Do" List Generator</h1>
-    <div class="results">
+<nav class="navbar bg-light navbar-expand-lg">
+    <div class="container-fluid">
+            <button class="navbar-toggler" type="button" id="menu-btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" id="home-link" href="#"><img src="./images/logo.jpeg" alt="Logo" width="30" height="30" class="d-inline-block align-text-top"><font size="5"><b>MiLISTEE &trade;</b></font> <font size="2"><i>...the "to-do" list app</i></font></a>
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+<!------------------------ New List & Sample List Buttons: new list btn triggers modal ------->
+ <button class="btn btn-outline-success me-2" id="create-new-list-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button">Create New List</button>
+ <button class="btn btn-sm btn-outline-secondary me-2"  id="sample-list-btn" data-bs-target="offcanvas" data-bs-dismiss="offcanvas" type="button">Sample List</button>
+<!------------------------ Nav Bar "More" Dropdown Menu --------------------------------------->
+            <li class="nav-item dropdown stay-open">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                More
+              </a>
+              <ul class="dropdown-menu dropdown-menu-lg-end">
+                <li data-bs-dismiss="offcanvas"><a class="dropdown-item" href="#" id="home-link">Home</a></li>
+                <li data-bs-dismiss="offcanvas"><a class="dropdown-item" href="#" id="contact-link" data-bs-toggle="modal" data-bs-target="#contact-modal" data-bs-whatever="@MiLISTEE">Contact</a></li>
+                <li data-bs-dismiss="offcanvas"><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#saved-lists-modal" id="saved-lists-link">Saved Lists</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+  </nav>
+<!---------------------------------- New List Btn Modal --------------------------->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">New "To-Do" List Title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Title">
+                        <label for="floatingInput">Enter Title</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="save-continue-btn" data-bs-dismiss="modal">Save and Continue</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------ Contact Link Dropdown Modal  ----------------------->
+<div class="modal fade" id="contact-modal" tabindex="-1" aria-labelledby="contact-modalLabel" aria-hidden="true">
+  <div class="vertical-alignment-helper">
+    <div class="modal-dialog vertical-align-center">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">New message to: @MiLISTEE.team</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Recipient:</label>
+                <input type="text" class="form-control" id="recipient-name" value="@MiLISTEE.team">
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Message:</label>
+                <textarea class="form-control" id="message-text"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#contact-modal2">Send message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--------------------- Contact Link Dropdown Modal 2 - "Message Sent" -------------->
+<div class="modal fade" id="contact-modal2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Submission Received</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Your message has been sent to the <b>MiLISTEE &trade;</b> team! Please allow us 2-3 business days for a response.
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<!-------------- Saved Lists Link Dropdown Btn Modal ---------------->
+<div class="modal fade" id="saved-lists-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="vertical-alignment-helper">
+      <div class="modal-dialog vertical-align-center">
+          <div class="modal-dialog">
+          <div class="modal-content" id="saved-lists-modal-cnt">
+              <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Saved Lists</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" id="saved-lists-modal-body">
+                <!-- <button class="btn btn-md btn-outline-success me-2"  id="sample-list-btn" data-bs-target="modal" data-bs-dismiss="modal" type="button">Groceries</button>
+                <button class="btn btn-md btn-outline-success me-2"  id="sample-list-btn" data-bs-target="modal" data-bs-dismiss="modal" type="button">Shopping</button>
+                <button class="btn btn-md btn-outline-success me-2"  id="sample-list-btn" data-bs-target="modal" data-bs-dismiss="modal" type="button">Auto</button> -->
+                <!-- <p>You currently don't have any saved lists.</p> -->
+              </div>
+              <!-- <div class="modal-footer">
+                <button class="btn btn-outline-success me-2" id="create-new-list-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button">Create New List</button>
+              </div> -->
+          </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!------------------ Delete List/Table Confirmation Modal  ------------------>
+<!-- <div class="modal fade" id="confirm-delete-list-modal" tabindex="-1">
+  <div class="vertical-alignment-helper">
+    <div class="modal-dialog vertical-align-center">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirm Action</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="confirm-delete-modal-body"> -->
+            <!-- <p>Are you sure you want to delete this table?</p> -->
+          <!-- </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger" id="delete-list" data-bs-dismiss="modal">Delete List</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!---------------------------- MAIN ----------------------------------------->
+  <main class="main">
+    <div class="px-4 py-0 my-0 text-center">
+      <img class="d-block mx-auto mb-0" id="hero_img" src="./images/check_list.svg" alt="" width="575" height="575">
+      <h1 class="display-5 fw-bold">GET.IT.DONE.</h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4"> Create personalized to-do list's with style and conquer your procrastination once and for all. Meet <b>MiLISTEE &trade;</b>, your new GO-TO app to get stuff done. List it, do it, and then check it off your list and forget it ever happened. The best part? It's FREE.</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <button type="button" class="btn btn-primary btn-lg px-4 gap-3" id="get-started-btn">Get Started</button>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="to-do-list-container">
+        <h1>New "To-Do" List </h1>
+        <table class="table table-striped">
+            ...
+        </table>
+    </div>
+  
     <div class="btn-div">
         <button id="all_families_btn">Add Entry</button>
         <button id="all_parents_btn">Edit Entry</button>
         <button id="all_children_btn">Remove Entry</button>
         <button id="all_children_btn">Hide Completed</button>
     </div>
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Email address</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+      </div> -->
+
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Launch static backdrop modal
+  </button> -->
+  
+  <!-- Modal -->
+  <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Understood</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+<!----------------------- NEW TO DO LIST -------------------------->
+        <!-- <div class="container"> TO-DO LIST NAME
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th scope="col" id="num-col">#</th>
+                <th scope="col" id="status-col">Status</th>
+                <th scope="col" id="item-col">Item</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <th scope="row"><div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                  </div></th>
+                <td>Mark</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <th scope="row"><div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                  </div></th>
+                <td>Jacob</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <th scope="row"><div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                  </div></th>
+                <td colspan="2">Larry the Bird</td>
+            </tr>
+            </tbody>
+        </table>
+        </div> -->
+        <!-- <img src="./images/add-circle-outline.svg"  id="add-row-svg" width="30" height="30"> -->
+        <!-- Example split danger button -->
+<!-- <div class="btn-group">
+  <button type="button" class="btn btn-outline-success">Action</button>
+  <button type="button" class="btn btn-outline-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="visually-hidden">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Delete List</a></li>
+  </ul>
+</div> -->
+  </main>  
 </body>
-</html>

@@ -7,4 +7,3 @@ CREATE TABLE sample_td_list (
 );
 
 
-
